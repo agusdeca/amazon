@@ -1,4 +1,5 @@
-import {carrito} from '../data/carrito.js'
+import {carrito, agregarCarrito,mostrarCarrito} from '../data/carrito.js'
+import{products} from '../data/products.js'
 //mostrar los productos
 let prHtml="";
 products.forEach((producto)=>{
@@ -55,33 +56,12 @@ products.forEach((producto)=>{
 document.querySelector(".products-grid").innerHTML=prHtml
 
 //sumar al carrito
-var sumaCarrito=0;
 document.querySelectorAll(".add-to-cart-button").forEach((button)=>{
     button.addEventListener('click',()=>{
         var idPr=button.dataset.idProducto 
         var cantidadPr=1
-        var articuloMatch;
-
-        carrito.forEach((item)=>{
-            if(item.idProducto===idPr){
-                articuloMatch=item;  
-            }
-        })
-        
-        if(articuloMatch){
-            articuloMatch.cantidadProducto+=1;
-            sumaCarrito++;
-        }else{
-            carrito.push(
-                {
-                    idProducto: idPr,
-                    cantidadProducto:cantidadPr
-                }
-            )
-            sumaCarrito++;
-        }
-        
-        document.querySelector(".cart-quantity").innerHTML=sumaCarrito;
-        
+        agregarCarrito(idPr,cantidadPr);
+        mostrarCarrito();
+        console.log(carrito)
     })
 })
