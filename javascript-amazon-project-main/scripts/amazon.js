@@ -1,3 +1,5 @@
+import {carrito} from '../data/carrito.js'
+//mostrar los productos
 let prHtml="";
 products.forEach((producto)=>{
   const textoProductos=`<div class="product-container">
@@ -44,12 +46,42 @@ products.forEach((producto)=>{
             Added
           </div>
 
-          <button class="add-to-cart-button button-primary" data-nombre-producto="${producto.name}">
+          <button class="add-to-cart-button button-primary" data-id-producto="${producto.id}">
             Add to Cart
           </button>
         </div>`;
         prHtml+=textoProductos
 });
-
 document.querySelector(".products-grid").innerHTML=prHtml
 
+//sumar al carrito
+var sumaCarrito=0;
+document.querySelectorAll(".add-to-cart-button").forEach((button)=>{
+    button.addEventListener('click',()=>{
+        var idPr=button.dataset.idProducto 
+        var cantidadPr=1
+        var articuloMatch;
+
+        carrito.forEach((item)=>{
+            if(item.idProducto===idPr){
+                articuloMatch=item;  
+            }
+        })
+        
+        if(articuloMatch){
+            articuloMatch.cantidadProducto+=1;
+            sumaCarrito++;
+        }else{
+            carrito.push(
+                {
+                    idProducto: idPr,
+                    cantidadProducto:cantidadPr
+                }
+            )
+            sumaCarrito++;
+        }
+        
+        document.querySelector(".cart-quantity").innerHTML=sumaCarrito;
+        
+    })
+})
