@@ -38,3 +38,14 @@ export function mostrarCarrito(){
   })
   document.querySelector(".cart-quantity").innerHTML=total
 }
+
+export function borrarProducto(idProducto){
+    const nuevoCarrito=[]
+    carrito.forEach((producto)=>{
+        if(producto.idProducto!==idProducto){
+            nuevoCarrito.push(producto)
+        }
+    })
+
+    carrito=nuevoCarrito
+}

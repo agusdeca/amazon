@@ -1,5 +1,5 @@
 import{products} from '../data/products.js'
-import {carrito} from '../data/carrito.js'
+import {carrito,borrarProducto} from '../data/carrito.js'
 var textoProductoHtml="";
 carrito.forEach((productoCarrito)=>{
 
@@ -11,7 +11,7 @@ carrito.forEach((productoCarrito)=>{
     })
     console.log(matchProducto)
         
-            var textoProductos=`<div class="cart-item-container">
+            var textoProductos=`<div class="cart-item-container js-cart-item-container-${matchProducto.id}">
             <div class="delivery-date">
               Delivery date: Tuesday, June 21
             </div>
@@ -34,7 +34,7 @@ carrito.forEach((productoCarrito)=>{
                   <span class="update-quantity-link link-primary">
                     Update
                   </span>
-                  <span class="delete-quantity-link link-primary">
+                  <span class="delete-quantity-link link-primary" data-id-producto="${matchProducto.id}">
                     Delete
                   </span>
                 </div>
@@ -90,3 +90,12 @@ carrito.forEach((productoCarrito)=>{
       textoProductoHtml+=textoProductos    
 })
 document.querySelector(".order-summary").innerHTML=textoProductoHtml
+
+document.querySelectorAll(".delete-quantity-link").forEach((link)=>{
+    link.addEventListener('click',()=>{
+        const idDelProducto= link.dataset.idProducto
+        borrarProducto(idDelProducto);
+        const contenedor= document.querySelector(`.js-cart-item-container-${idDelProducto}`)
+        contenedor.remove()
+    })
+})
