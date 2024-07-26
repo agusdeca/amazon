@@ -1,13 +1,9 @@
- export var carrito=[
-    {
-        idProducto:'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
-        cantidadProducto:2
-    },
-    {
-        idProducto:'83d4ca15-0f35-48f5-b7a3-1ea210004f2e',
-        cantidadProducto:1 
-    }
- ];
+ export var carrito=JSON.parse(localStorage.getItem('carrito'))|| [];
+
+ function almacenarCarrito(){
+    localStorage.setItem('carrito',JSON.stringify(carrito));
+ }
+
  export function agregarCarrito(idPr,cantidadPr){
     var articuloMatch;
 
@@ -28,7 +24,8 @@
             )
             
         }
-
+        almacenarCarrito();
+        mostrarCarrito();
 }
 
 export function mostrarCarrito(){
@@ -47,5 +44,6 @@ export function borrarProducto(idProducto){
         }
     })
 
-    carrito=nuevoCarrito
+    carrito=nuevoCarrito;
+    almacenarCarrito();
 }
