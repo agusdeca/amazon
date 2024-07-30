@@ -26,7 +26,7 @@ products.forEach((producto)=>{
           </div>
 
           <div class="product-quantity-container">
-            <select>
+            <select class="product-quantity" data-id-producto="${producto.id}">
               <option selected value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
@@ -54,12 +54,13 @@ products.forEach((producto)=>{
         prHtml+=textoProductos
 });
 document.querySelector(".products-grid").innerHTML=prHtml
+mostrarCarrito();
 
 //sumar al carrito
 document.querySelectorAll(".add-to-cart-button").forEach((button)=>{
     button.addEventListener('click',()=>{
-        var idPr=button.dataset.idProducto 
-        var cantidadPr=1
+        const idPr=button.dataset.idProducto 
+        const cantidadPr = parseInt(document.querySelector(`.product-quantity[data-id-producto="${idPr}"]`).value);
         agregarCarrito(idPr,cantidadPr);
         mostrarCarrito();
         console.log(carrito)

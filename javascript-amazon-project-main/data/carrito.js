@@ -2,6 +2,7 @@
 
  function almacenarCarrito(){
     localStorage.setItem('carrito',JSON.stringify(carrito));
+    
  }
 
  export function agregarCarrito(idPr,cantidadPr){
@@ -14,12 +15,13 @@
         })
         
         if(articuloMatch){
-            articuloMatch.cantidadProducto+=1;
+            articuloMatch.cantidadProducto+=cantidadPr;
         }else{
             carrito.push(
                 {
                     idProducto: idPr,
-                    cantidadProducto:cantidadPr
+                    cantidadProducto:cantidadPr,
+                    deliveryId:'1' 
                 }
             )
             
@@ -34,6 +36,7 @@ export function mostrarCarrito(){
     total+=producto.cantidadProducto;
   })
   document.querySelector(".cart-quantity").innerHTML=total
+  
 }
 
 export function borrarProducto(idProducto){
@@ -46,4 +49,9 @@ export function borrarProducto(idProducto){
 
     carrito=nuevoCarrito;
     almacenarCarrito();
+    actualizarCantidad();
+}
+
+export function actualizarCantidad(){
+    document.querySelector(".return-to-home-link").innerHTML=`${carrito.length} items`
 }
