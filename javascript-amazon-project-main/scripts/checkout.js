@@ -1,5 +1,5 @@
 import{products} from '../data/products.js'
-import {carrito,borrarProducto,actualizarCantidad} from '../data/carrito.js'
+import {carrito,borrarProducto,actualizarCantidad,actualizarDelivery} from '../data/carrito.js'
 import{opcionDelivery} from '../data/opcionDelivery.js'
 
 
@@ -14,10 +14,21 @@ carrito.forEach((productoCarrito)=>{
         }
     })
     console.log(matchProducto)
-        
+            var opcionDeliveryId= productoCarrito.deliveryId
+            var encontradoDelivery
+            opcionDelivery.forEach((opcion)=>{
+              if(opcion.id===opcionDeliveryId){
+                encontradoDelivery=opcion;
+              }
+            })
+            
+            const diaHoy= dayjs()
+            const diaDelivery=diaHoy.add(encontradoDelivery.diasDelivery,'days');
+            const diaString=diaDelivery.format('dddd, MMMM D');
+
             var textoProductos=`<div class="cart-item-container js-cart-item-container-${matchProducto.id}">
             <div class="delivery-date">
-              Delivery date: Tuesday, June 21
+              Delivery date: ${diaString}
             </div>
 
             <div class="cart-item-details-grid">
@@ -70,7 +81,7 @@ function opcionesDeliveryHTML(matchProducto,carrito){
     console.log(carrito.deliveryId)
     console.log(opcion.id)
     html+=`
-          <div class="delivery-option">
+          <div class="delivery-option" data-id-producto="${matchProducto.id}" data-id-opcion-delivery="${opcion.id}">
               <input type="radio" ${isChecked ?'checked' :''} class="delivery-option-input"name="${matchProducto.id}">
                   <div>
                       <div class="delivery-option-date">
@@ -95,3 +106,10 @@ document.querySelectorAll(".delete-quantity-link").forEach((link)=>{
         contenedor.remove()
     })
 })
+
+document.querySelectorAll(".delivery-option").forEach((item) => {
+  item.addEventListener('click', () => {
+    const { idProducto, idOpcionDelivery } = item.dataset;
+    actualizarDelivery(idProducto, idOpcionDelivery);
+  });
+});

@@ -55,3 +55,15 @@ export function borrarProducto(idProducto){
 export function actualizarCantidad(){
     document.querySelector(".return-to-home-link").innerHTML=`${carrito.length} items`
 }
+
+export function actualizarDelivery(idProducto,opcionDelivery){
+    var articuloMatch;
+    carrito.forEach((item)=>{
+        if(item.idProducto===idProducto){
+            articuloMatch=item;  
+        }
+    })
+
+    articuloMatch.deliveryId=opcionDelivery;
+    almacenarCarrito();
+}
