@@ -35,7 +35,7 @@ export function renderOrder(){
                             ${matchProducto.name}
                         </div>
                         <div class="product-price">
-                            ${(matchProducto.priceCents / 100).toFixed(2)}
+                            $${matchProducto.getprice()}
                         </div>
                         <div class="product-quantity js-product-quantity-${matchProducto.id}">
                             <span>

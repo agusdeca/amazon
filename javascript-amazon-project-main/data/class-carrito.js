@@ -1,13 +1,13 @@
 class Cart{
-    carrito= JSON.parse(localStorage.getItem(this.localStorageKey)) || [];
-    localStorageKey;
+    #localStorageKey;
+    carrito= JSON.parse(localStorage.getItem(this.#localStorageKey)) || [];
 
     constructor(nombreLocalStorage){
-        this.localStorageKey=nombreLocalStorage;
+        this.#localStorageKey=nombreLocalStorage;
     }
 
     almacenarCarrito() {
-        localStorage.setItem(this.localStorageKey, JSON.stringify(this.carrito));
+        localStorage.setItem(this.#localStorageKey, JSON.stringify(this.carrito));
     };
 
     agregarCarrito(idPr, cantidadPr) {
