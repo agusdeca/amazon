@@ -1,5 +1,5 @@
 import {carrito, agregarCarrito,mostrarCarrito} from '../data/carrito.js'
-import{products} from '../data/products.js'
+import{products,Clothing} from '../data/products.js'
 //mostrar los productos
 let prHtml="";
 products.forEach((producto)=>{
@@ -39,6 +39,8 @@ products.forEach((producto)=>{
               <option value="10">10</option>
             </select>
           </div>
+
+          ${producto.extraInfo()}
 
           <div class="product-spacer"></div>
 

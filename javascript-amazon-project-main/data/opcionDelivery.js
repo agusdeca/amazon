@@ -23,5 +23,5 @@ export function obtenerDelivery(numero){
             opcionEncontrada= opcion
         }
     })
-    return opcionEncontrada || opcionDelivery[0]
+    return opcionEncontrada || opcionDelivery[0]    
 }

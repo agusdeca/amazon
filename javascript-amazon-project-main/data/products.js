@@ -11,14 +11,31 @@ class Product{
     this.name=detalleproducto.name;
     this.rating=detalleproducto.rating;
     this.priceCents=detalleproducto.priceCents;
-  }
-  
+  };
+
+  extraInfo(){
+    return ``
+  };
+
   getStarsUrl(){
     return `images/ratings/rating-${this.rating.stars*10}.png`
   };
 
   getprice(){
     return (this.priceCents/100).toFixed(2)
+  }
+}
+
+export class Clothing extends Product{
+  tamaño;
+  
+  constructor(detalleproducto) {
+    super(detalleproducto);
+    this.tamaño=detalleproducto.sizeChartLink
+  }
+
+  extraInfo(){
+    return `<a href="${this.tamaño}" target="_blank">Tamaños</a>`
   }
 }
 
@@ -682,7 +699,12 @@ export const products = [
     ]
   }
 ].map((producto)=>{
-  return new Product(producto)
+  if(producto.type==="clothing"){
+    return new Clothing(producto)
+  }else{
+    return new Product(producto)
+  }
+  
 });
 
 console.log(products)
