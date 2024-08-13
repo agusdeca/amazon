@@ -1,7 +1,9 @@
 import {carrito, agregarCarrito,mostrarCarrito} from '../data/carrito.js'
-import{products,Clothing} from '../data/products.js'
+import{products,Clothing,cargarProductos} from '../data/products.js'
 //mostrar los productos
-let prHtml="";
+cargarProductos(renderProductos)
+function renderProductos(){
+  let prHtml="";
 products.forEach((producto)=>{
   const textoProductos=`<div class="product-container">
           <div class="product-image-container">
@@ -68,3 +70,5 @@ document.querySelectorAll(".add-to-cart-button").forEach((button)=>{
         console.log(carrito)
     })
 })
+}
+
