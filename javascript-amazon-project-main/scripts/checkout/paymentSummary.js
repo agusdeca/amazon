@@ -58,10 +58,27 @@ export function renderSummary() {
             <div class="payment-summary-money">$${total.toFixed(2)}</div>
         </div>
 
-        <button class="place-order-button button-primary">
+        <button class="place-order-button button-primary  place-order-js">
             Place your order
         </button>
     `;
     
     document.querySelector(".payment-summary").innerHTML = paymentSummary;
+    
+
+    document.querySelector(".place-order-js").addEventListener('click',async()=>{
+        const response =await fetch('https://supersimplebackend.dev/orders',{
+            method:'POST',
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                carritot:carrito
+            })
+        })
+
+        const order = await response.json()
+        console.log(order)
+        
+    })
 }
